@@ -1,1 +1,85 @@
+#include<bits/stdc++.h>
+using namespace std;
 
+class Node{
+  Node * arr[26];
+  bool res=false;
+    public:
+  bool containsKey(char ch){
+      return arr[ch-'a']!=NULL;
+  }
+   void put( char ch,Node * nn){
+         arr[ch-'a']=nn;
+   }
+    Node * getnext(char ch){
+        return arr[ch-'a'];
+    }
+    void setend(){
+        res=true;
+    }
+    bool isend(){
+        return res;
+    }
+};
+class Trie {
+
+public:
+   Node * root;
+    /** Initialize your data structure here. */
+    Trie() {
+     root=new Node();
+    }
+
+    /** Inserts a word into the trie. */
+    void insert(string word) {
+        Node * temp=root;
+           for(int i=0;i<word.length();i++){
+               char ch=word[i];
+               if(!temp->containsKey(ch)){
+                   temp->put(ch,new Node());
+               }
+               temp=temp->getnext(ch);
+           }
+        temp->setend();
+    }
+
+    /** Returns if the word is in the trie. */
+    bool search(string word) {
+        Node * temp=root;
+         for(int i=0;i<word.length();i++){
+             char ch=word[i];
+             if(!temp->containsKey(ch)){
+                 return false;
+             }
+              temp=temp->getnext(ch);
+         }
+        return temp->isend();
+    }
+
+    /** Returns if there is any word in the trie that starts with the given prefix. */
+    bool startsWith(string prefix) {
+Node * temp=root;
+         for(int i=0;i<prefix.length();i++){
+             char ch=prefix[i];
+             if(!temp->containsKey(ch)){
+                 return false;
+             }
+              temp=temp->getnext(ch);
+         }
+        return true;
+    }
+};
+int main(){
+    Trie * t=new Trie();
+    vector<string> a;
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++){
+        string s;
+        cin>>s;
+        t->insert(s);
+    }
+    bool isit=t->startsWith("hello");
+   if(isit==true)cout<<"present";
+   else cout<<"not present";
+}
