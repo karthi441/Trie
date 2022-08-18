@@ -1,0 +1,6 @@
+steps:
+1) take the xor of every val starting from 0 to n-1
+2) now try to eliminate the subarray from 0 to k (k<i) by finding the starting bits opposite xor to the current xor that starts from 0 to i. that you do using tries 
+(finding max xor of two values)
+3) at every step store the maximum ans
+
